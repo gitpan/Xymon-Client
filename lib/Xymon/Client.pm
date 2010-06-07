@@ -4,7 +4,7 @@ use strict;
 BEGIN {
     use Exporter ();
     use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
-    $VERSION     = '0.01';
+    $VERSION     = '0.02';
     @ISA         = qw(Exporter);
     @EXPORT      = qw();
     @EXPORT_OK   = qw();
@@ -21,10 +21,10 @@ sub new
 	
  
     my $self = bless ({}, ref ($class) || $class);
-	$self->{'home'} = $home->{'home'};
+	$self->{'home'} = $home->{home};
 	
 	my $fh;
-	open($fh, "<",$self->{home}."etc/hobbitclient.cfg");
+	open($fh, "<",$self->{home}."/etc/hobbitclient.cfg");
 	while(<$fh>) {
 		chomp;
 		if(!m/^#/ && m/\w+/) {
@@ -53,15 +53,16 @@ sub send_status
 	my $self = shift;
 	my $args = shift;
 	
+
 	foreach my $host (@{$self->{BBDISPLAYS}}) {
-		system("$self->{home}/bin/bb $host 'status $args->{server}.$args->{testname} $args->{color} $args->{msg}'");
+		system("$self->{home}/bin/bb $host 'status $args->{server}.$args->{testname} $args->{color} $args->{msg}'") ;
 	}
 	
 }
 
 =head1 NAME
 
-Xymon::Client - Interface to xymon /hobbit client.
+Xymon::Client - Interface to xymon/hobbit client.
 
 =head1 SYNOPSIS
 
