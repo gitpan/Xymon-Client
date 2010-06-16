@@ -1,15 +1,55 @@
-pod2text Xymon::Client.pm > README
+NAME
+    Xymon::Client - Interface to xymon/hobbit client.
 
-If this is still here it means the programmer was too lazy to create the readme file.
+SYNOPSIS
+      use Xymon::Client;
+      my $xymon = Xymon::Client("/home/hobbit/client/");
+      
+  $xymon->send({
+            server => 'servername',
+            testname => 'test',
+            color => 'red',
+            msg => 'test failed',
+            
+  })
 
-You can create it now by using the command shown above from this directory.
+DESCRIPTION
+    Provides an object interface to the xymon/hobbit client.
 
-At the very least you should be able to use this set of instructions
-to install the module...
+METHODS
+  Xymon::Client->new($home)
+    Create a new Xymon Client object, passing it the xymon/hobbit home dir.
+    This is usually /home/hobbit/client.
 
-perl Makefile.PL
-make
-make test
-make install
+  send({...})
+    Sends a status message to the hobbit server. The following parameters
+    should be passed:
 
-If you are on a windows box you should use 'nmake' rather than 'make'.
+    server: the server name that was tested testname: the name of the test
+    (ie the column on the xymon page) color: the status color msg: the
+    message to send which may be multiline and include any name-colon-value
+    parameters.
+
+    ie
+
+    $xymon->send({ server => 'servername', testname => 'test', color =>
+    'red', msg => 'test failed',
+
+      })
+
+AUTHOR
+        David Peters
+        CPAN ID: DAVIDP
+        davidp@electronf.com
+        http://www.electronf.com
+
+COPYRIGHT
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
+    The full text of the license can be found in the LICENSE file included
+    with this module.
+
+SEE ALSO
+    perl(1), bb(1)
+

@@ -7,7 +7,7 @@ WriteMakefile(
     NAME         => 'Xymon::Client',
     VERSION_FROM => 'lib/Xymon/Client.pm', # finds \$VERSION
     AUTHOR       => 'David Peters (davidp@electronf.com)',
-    ABSTRACT     => 'Interface to xymon /hobbit client.',
+    ABSTRACT     => 'Interface to xymon / hobbit client.',
     PREREQ_PM    => {
                      'Test::Simple' => 0.44,
                     },
