@@ -4,7 +4,7 @@ use strict;
 BEGIN {
     use Exporter ();
     use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
-    $VERSION     = '0.03';
+    $VERSION     = '0.04';
     @ISA         = qw(Exporter);
     @EXPORT      = qw();
     @EXPORT_OK   = qw();
@@ -19,9 +19,10 @@ sub new
     my ($class,$home) = @_;
 	
 	
- 
+ 	print "------------". $home . "\n";
+ 	
     my $self = bless ({}, ref ($class) || $class);
-	$self->{'home'} = $home->{home};
+	$self->{home} = $home;
 	
 	my $fh;
 	open($fh, "<",$self->{home}."/etc/hobbitclient.cfg");
@@ -48,6 +49,7 @@ sub new
 
 }
 
+
 sub send_status
 {
 	my $self = shift;
@@ -67,7 +69,7 @@ Xymon::Client - Interface to xymon/hobbit client.
 =head1 SYNOPSIS
 
   use Xymon::Client;
-  my $xymon = Xymon::Client("/home/hobbit/client/");
+  my $xymon = Xymon::Client->new("/home/hobbit/client/");
   
   $xymon->send({
   	server => 'servername',
