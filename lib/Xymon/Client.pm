@@ -4,7 +4,7 @@ use strict;
 BEGIN {
     use Exporter ();
     use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
-    $VERSION     = '0.04';
+    $VERSION     = '0.05';
     @ISA         = qw(Exporter);
     @EXPORT      = qw();
     @EXPORT_OK   = qw();
@@ -17,9 +17,7 @@ BEGIN {
 sub new
 {
     my ($class,$home) = @_;
-	
-	
- 	print "------------". $home . "\n";
+
  	
     my $self = bless ({}, ref ($class) || $class);
 	$self->{home} = $home;
