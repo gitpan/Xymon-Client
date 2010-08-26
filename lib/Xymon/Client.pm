@@ -4,7 +4,7 @@ use strict;
 BEGIN {
     use Exporter ();
     use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
-    $VERSION     = '0.05';
+    $VERSION     = '0.07';
     @ISA         = qw(Exporter);
     @EXPORT      = qw();
     @EXPORT_OK   = qw();
@@ -69,7 +69,7 @@ Xymon::Client - Interface to xymon/hobbit client.
   use Xymon::Client;
   my $xymon = Xymon::Client->new("/home/hobbit/client/");
   
-  $xymon->send({
+  $xymon->send_status({
   	server => 'servername',
   	testname => 'test',
   	color => 'red',
