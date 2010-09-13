@@ -4,7 +4,7 @@ use strict;
 BEGIN {
     use Exporter ();
     use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
-    $VERSION     = '0.07';
+    $VERSION     = '0.08';
     @ISA         = qw(Exporter);
     @EXPORT      = qw();
     @EXPORT_OK   = qw();
@@ -16,12 +16,13 @@ BEGIN {
 
 sub new
 {
-    my ($class,$home) = @_;
+    my ($class,$parm) = @_;
 
  	
     my $self = bless ({}, ref ($class) || $class);
-	$self->{home} = $home;
-	
+	$self->{home} = $parm->{home};
+	$self->{DEBUG} = $parm->{DEBUG};
+
 	my $fh;
 	open($fh, "<",$self->{home}."/etc/hobbitclient.cfg");
 	while(<$fh>) {
@@ -47,6 +48,23 @@ sub new
 
 }
 
+sub get_status
+{
+	my $self = shift;
+	my $service = shift;
+	my $cmd;
+	
+	my $host = $self->{BBDISPLAYS}[0];
+		
+	open($cmd,"$self->{home}/bin/bb $host 'hobbitdboard host=$host fields=hostname,testname,color'");
+	
+	while(<$cmd>) {
+		print $_ . "\n";
+	}
+
+	
+}
+
 
 sub send_status
 {
@@ -56,6 +74,9 @@ sub send_status
 
 	foreach my $host (@{$self->{BBDISPLAYS}}) {
 		system("$self->{home}/bin/bb $host 'status $args->{server}.$args->{testname} $args->{color} $args->{msg}'") ;
+		if( $self->{DEBUG} == 1 ) {
+			print "$self->{home}/bin/bb $host 'status $args->{server}.$args->{testname} $args->{color} $args->{msg}'";
+		}
 	}
 	
 }
